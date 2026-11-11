@@ -113,23 +113,23 @@ function buildSummary(state, completion) {
   const completedCount = Object.values(completion).filter(Boolean).length;
 
   return [
-    "SCI0007 Week 1 Lab Onboarding",
+    "SCI0007 กิจกรรมเริ่มต้นรายวิชา สัปดาห์ที่ 1",
     `ชื่อ-สกุล: ${state.student.name || "-"}`,
     `รหัสนักศึกษา: ${state.student.studentId || "-"}`,
     `กลุ่มเรียน: ${group ? `${group.label} (${group.detail})` : "-"}`,
-    `Portfolio link: ${state.student.portfolioLink || "-"}`,
+    `ลิงก์แฟ้มสะสมงาน: ${state.student.portfolioLink || "-"}`,
     `ความก้าวหน้า: ${completedCount}/5 สถานี`,
     "",
-    "Diagnostic",
+    "สำรวจความพร้อม",
     diagnosticText,
     "",
-    "AI policy scenario",
+    "สถานการณ์การใช้ AI",
     policyText,
     "",
-    "Evidence checklist",
+    "รายการตรวจหลักฐาน",
     evidenceText,
     "",
-    "Reflection",
+    "สะท้อนการเรียนรู้",
     state.reflection || "-",
   ].join("\n");
 }
@@ -177,7 +177,7 @@ export default function App() {
   };
 
   const resetAll = () => {
-    const ok = window.confirm("ล้างข้อมูลกิจกรรมบนเครื่องนี้ทั้งหมด?");
+    const ok = window.confirm("ต้องการล้างข้อมูลกิจกรรมทั้งหมดที่บันทึกไว้ในอุปกรณ์นี้หรือไม่?");
     if (!ok) return;
     window.localStorage.removeItem(STORAGE_KEY);
     setState(initialState);
@@ -271,7 +271,7 @@ export default function App() {
         <aside className="right-panel">
           <section className="panel evidence-panel">
             <div className="panel-heading">
-              <h2>Evidence checklist</h2>
+              <h2>รายการตรวจหลักฐาน</h2>
               <span>{Object.values(state.evidence).filter(Boolean).length}/{evidenceItems.length}</span>
             </div>
             <div className="evidence-list">
@@ -303,8 +303,8 @@ export default function App() {
 
           <section className="panel summary-panel">
             <div className="panel-heading">
-              <h2>Google Form summary</h2>
-              <span>{summary.length} chars</span>
+              <h2>ข้อความสรุปสำหรับ Google Form</h2>
+              <span>{summary.length} ตัวอักษร</span>
             </div>
             <div className="summary-progress">
               <strong>{completedCount}/5</strong>
@@ -316,7 +316,7 @@ export default function App() {
             <textarea readOnly value={summary} aria-label="ข้อความสรุปสำหรับส่ง Google Form" />
             <button data-testid="copy-summary" className="primary-button" type="button" onClick={copySummary}>
               <CopyIcon />
-              {state.copied ? "คัดลอกแล้ว" : "Copy Summary"}
+              {state.copied ? "คัดลอกแล้ว" : "คัดลอกข้อความสรุป"}
             </button>
           </section>
         </aside>
@@ -342,9 +342,9 @@ function StationContent({ state, setState, activeStation }) {
           </p>
         </div>
         <div className="outcome-grid">
-          <Outcome title="CLO2" text="ใช้ Google Drive/Form และเว็บกิจกรรมเพื่อจัดการหลักฐานการเรียนรู้" />
+          <Outcome title="CLO2" text="ใช้ Google Drive, Google Form และเว็บกิจกรรมจัดเก็บหลักฐานการเรียนรู้" />
           <Outcome title="CLO4" text="ตรวจสอบและเปิดเผยการใช้ AI อย่างรับผิดชอบ" />
-          <Outcome title="Workflow" text="input → activity → evidence → submission" />
+          <Outcome title="ขั้นตอนการทำงาน" text="กรอกข้อมูล → ทำกิจกรรม → เก็บหลักฐาน → ส่งงาน" />
         </div>
         <section className="timeline">
           <h3>แผนเวลา 4 ชั่วโมง</h3>
@@ -464,7 +464,7 @@ function StationContent({ state, setState, activeStation }) {
       <div className="station-content">
         <div className="instruction-card">
           <h3>สำรวจความพร้อมก่อนเริ่มรายวิชา</h3>
-          <p>เลือกคำตอบที่ตรงกับตนเองที่สุด ข้อมูลนี้ใช้เพื่อให้อาจารย์ปรับการสาธิตใน lab</p>
+          <p>เลือกคำตอบที่ตรงกับตนเองที่สุด ข้อมูลนี้ช่วยให้อาจารย์ปรับการสาธิตในคาบปฏิบัติการ</p>
         </div>
         <div className="diagnostic-list">
           {diagnosticQuestions.map((question) => (
@@ -503,13 +503,13 @@ function StationContent({ state, setState, activeStation }) {
     return (
       <div className="station-content">
         <div className="instruction-card">
-          <h3>ตั้งค่าแฟ้มหลักฐานใน Google Drive</h3>
+          <h3>เตรียมแฟ้มหลักฐานใน Google Drive</h3>
           <p>
             สร้างโฟลเดอร์หลักและโฟลเดอร์ย่อย จากนั้นวางลิงก์ที่ตั้งสิทธิ์ให้ผู้สอนเปิดดูได้
           </p>
         </div>
         <div className="folder-map">
-          <div className="folder root">SCI0007_รหัส_ชื่อ</div>
+          <div className="folder root">SCI0007_รหัสนักศึกษา_ชื่อ</div>
           <div className="folder-children">
             <span>lab</span>
             <span>prompt-log</span>
@@ -518,7 +518,7 @@ function StationContent({ state, setState, activeStation }) {
           </div>
         </div>
         <label className="wide-input">
-          Portfolio link
+          ลิงก์แฟ้มสะสมงาน
           <input
             value={state.student.portfolioLink}
             onChange={(event) =>
@@ -528,7 +528,7 @@ function StationContent({ state, setState, activeStation }) {
                 student: { ...current.student, portfolioLink: event.target.value },
               }))
             }
-            placeholder="วางลิงก์ Google Drive folder ที่เปิดสิทธิ์แล้ว"
+            placeholder="วางลิงก์ Google โฟลเดอร์ใน Drive ที่เปิดสิทธิ์แล้ว"
           />
         </label>
       </div>
@@ -538,13 +538,13 @@ function StationContent({ state, setState, activeStation }) {
   return (
     <div className="station-content">
       <div className="instruction-card">
-        <h3>Reflection ท้ายคาบ</h3>
+        <h3>สะท้อนการเรียนรู้ท้ายคาบ</h3>
         <p>
-          เขียนอย่างน้อย 60 ตัวอักษร ด้วยภาษาของตนเอง แล้วคัดลอก summary ไปส่ง Google Form
+          เขียนอย่างน้อย 60 ตัวอักษร ด้วยภาษาของตนเอง แล้วคัดลอกข้อความสรุปไปส่งผ่าน Google Form
         </p>
       </div>
       <label className="reflection-box">
-        ฉันจะใช้ AI อย่างไรให้ช่วยเรียนรู้จริง ไม่ใช่ทำงานแทนฉัน
+        ฉันจะใช้ AI ช่วยเรียนรู้อย่างไร โดยยังคิด ตรวจสอบ และเขียนคำตอบด้วยตนเอง
         <textarea
           value={state.reflection}
           onChange={(event) =>
